@@ -1,0 +1,183 @@
+/* ==========================================================================
+   Base: tokens, reset, palco 1080×1920, botões e utilitários
+   ========================================================================== */
+
+:root {
+    /* Paleta extraída do material de referência */
+    --brand-blue: #0b52a5;
+    --navy: #0b4ea2;
+    --sky-light: #bfe9f7;
+    --sky: #5ccdea;
+    --white: #ffffff;
+    --error-backdrop: rgba(9, 32, 58, 0.66);
+
+    /* TODO(assets): substituir pelas fontes oficiais (colocar arquivos em assets/fonts
+       e declarar @font-face aqui). Fallbacks do sistema enquanto isso. */
+    --font-serif: "Georgia", "Times New Roman", serif;
+    --font-heavy: "Segoe UI Black", "Arial Black", "Segoe UI", system-ui, sans-serif;
+
+    /* Fundos orgânicos (ondas) — placeholders vetoriais até a arte oficial (config.assets.background) */
+    --wave-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 200' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1080V70C900 130 720 20 520 60C340 96 180 150 0 120Z' fill='%230b4ea2'/%3E%3C/svg%3E");
+    --wave-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 240' preserveAspectRatio='none'%3E%3Cpath d='M0 70C160 20 300 40 470 80C640 120 860 120 1080 40V240H0Z' fill='%230b4ea2'/%3E%3C/svg%3E");
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--navy);
+    /* Touch: sem seleção, sem scroll/zoom acidental, sem menu de toque longo */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+/* Faixas fora do palco (telas com outra proporção) na mesma cor da borda da tela ativa */
+html[data-screen="cover"],
+html[data-screen="final"],
+html[data-screen="cover"] body,
+html[data-screen="final"] body {
+    background: var(--brand-blue);
+}
+
+.hide-cursor,
+.hide-cursor * {
+    cursor: none !important;
+}
+
+p,
+h1 {
+    margin: 0;
+}
+
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* Palco: largura 1080px fixa, altura definida por app.js conforme a proporção da tela
+   (1920px na TV 1080×1920). app.js também aplica translate + scale. */
+.stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    container-type: size; /* cqh nas telas = % da altura do palco, não da janela */
+    font-family: var(--font-serif);
+    color: var(--navy);
+    opacity: 0;
+}
+
+.stage.is-ready {
+    opacity: 1;
+}
+
+strong {
+    font-family: var(--font-heavy);
+    font-weight: 900;
+}
+
+/* ---------- Botões ---------- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    border: none;
+    font-family: var(--font-heavy);
+    font-weight: 900;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 120ms ease, filter 120ms ease;
+}
+
+.btn.is-pressed {
+    transform: scale(0.95);
+    filter: brightness(0.92);
+}
+
+.btn--solid {
+    background: var(--navy);
+    color: var(--white);
+}
+
+.btn--light {
+    background: var(--sky-light);
+    color: var(--navy);
+}
+
+/* ---------- Fundo com ondas ---------- */
+
+.bg-waves {
+    background:
+        var(--wave-top) top / 100% 170px no-repeat,
+        var(--wave-bottom) bottom / 100% 230px no-repeat,
+        var(--sky-light);
+}
+
+.has-custom-background .bg-waves {
+    background: var(--custom-background) center / cover no-repeat, var(--sky-light);
+}
+
+/* ---------- Logo (placeholder em texto até config.assets.logo) ---------- */
+
+.logo-placeholder {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+}
+
+.logo-placeholder__text {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.logo-placeholder__smile {
+    display: block;
+    width: 70%;
+    height: 0.3em;
+    margin-top: -0.12em;
+    border-bottom: 0.07em solid currentColor;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.logo-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* ---------- Marcação de placeholders (config.debug.showPlaceholderLabels) ---------- */
+
+.show-placeholder-labels [data-placeholder]::after {
+    content: attr(data-placeholder);
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(233, 30, 140, 0.88);
+    color: #fff;
+    font: 700 16px/1.2 "Segoe UI", system-ui, sans-serif;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    z-index: 5;
+}

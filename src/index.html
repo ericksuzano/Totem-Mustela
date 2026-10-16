@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'">
+    <title>Mustela</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/screens.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<!--
+    Palco fixo de 1080×1920 (9:16). app.js escala o palco para caber em qualquer janela.
+    O conteúdo de texto vem de src/data/*.js; as telas aqui só têm a estrutura.
+-->
+<div id="stage" class="stage" data-screen="cover">
+
+    <!-- 1. CAPA -->
+    <section class="screen screen--cover" data-screen-id="cover">
+        <div class="cover__logo" data-slot="logo"></div>
+        <button class="btn btn--cover" type="button" data-action="go-how-to-play">
+            <span data-text="cover.buttonLabel"></span>
+            <svg class="btn__arrow" viewBox="0 0 64 24" aria-hidden="true">
+                <path d="M2 14 C 18 10, 34 16, 56 12 M46 4 L58 12 L46 20" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- 2. COMO JOGAR -->
+    <section class="screen screen--how-to-play bg-waves" data-screen-id="how-to-play">
+        <h1 class="how-to-play__title" data-text="howToPlay.title"></h1>
+        <div class="how-to-play__panel">
+            <p class="how-to-play__body" data-text="howToPlay.body"></p>
+            <svg class="how-to-play__star" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M24 6 L29 19 L42 19 L31 27 L35 41 L24 32 L13 41 L17 27 L6 19 L19 19 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+            <p class="how-to-play__hint" data-text="howToPlay.hint"></p>
+        </div>
+        <button class="btn btn--solid how-to-play__button" type="button" data-action="start-quiz">
+            <span data-text="howToPlay.buttonLabel"></span>
+        </button>
+    </section>
+
+    <!-- 3–6. PERGUNTAS (uma única tela, preenchida a partir de questions.js) -->
+    <section class="screen screen--question bg-waves" data-screen-id="question">
+        <header class="question-header">
+            <p class="question-header__text" data-ref="questionText"></p>
+        </header>
+        <header class="correct-header" aria-live="polite">
+            <svg class="correct-header__heart" viewBox="0 0 80 70" aria-hidden="true">
+                <path d="M40 62 C 10 40, 6 20, 22 14 C 32 10, 38 18, 40 24 C 42 18, 50 10, 60 14 C 74 20, 70 40, 40 62 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M30 6 L33 0 M40 4 L40 -2 M50 6 L47 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <p class="correct-header__text" data-text="question.correctTitle"></p>
+        </header>
+
+        <div class="question__furniture" data-ref="quizFurniture"></div>
+
+        <footer class="progress" data-ref="progress">
+            <div class="progress__dots" data-ref="progressDots"></div>
+            <p class="progress__label" data-ref="progressLabel"></p>
+        </footer>
+
+        <div class="error-modal" data-action="dismiss-error" role="alertdialog" aria-live="assertive">
+            <div class="error-modal__card" data-ref="errorCard">
+                <p class="error-modal__title" data-ref="errorTitle"></p>
+                <svg class="error-modal__wand" viewBox="0 0 64 80" aria-hidden="true">
+                    <path d="M6 76 L34 34" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M40 14 L43 22 L51 22 L45 27 L47 35 L40 30 L33 35 L35 27 L29 22 L37 22 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M40 2 L40 7 M56 16 L60 14 M24 16 L20 14 M56 34 L60 38" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <p class="error-modal__message" data-ref="errorMessage"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. PARABÉNS -->
+    <section class="screen screen--congrats bg-waves" data-screen-id="congrats">
+        <div class="congrats__sparkles" aria-hidden="true"></div>
+        <h1 class="congrats__title" data-text="congrats.title"></h1>
+        <p class="congrats__subtitle" data-text="congrats.subtitle"></p>
+        <div class="congrats__furniture" data-ref="congratsFurniture"></div>
+        <button class="btn btn--light congrats__button" type="button" data-action="continue">
+            <span data-text="congrats.buttonLabel"></span>
+        </button>
+    </section>
+
+    <!-- 8. TELA FINAL -->
+    <section class="screen screen--final" data-screen-id="final">
+        <div class="final__logo" data-slot="logo"></div>
+        <p class="final__message" data-text="final.message"></p>
+        <div class="final__qr-row">
+            <div class="final__qr" data-ref="qrSlot"></div>
+            <svg class="final__qr-arrow" viewBox="0 0 120 180" aria-hidden="true">
+                <path d="M10 22 C 40 0, 90 10, 96 50 C 102 90, 60 100, 64 64 C 68 34, 110 50, 104 100 C 100 130, 80 150, 56 166 M56 166 L76 168 M56 166 L62 148" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <p class="final__qr-title" data-text="final.qrTitle"></p>
+        <p class="final__qr-subtitle" data-text="final.qrSubtitle"></p>
+    </section>
+
+    <!-- SAÍDA: aberto com 5 toques seguidos no logo -->
+    <div class="exit-modal" role="alertdialog" aria-modal="true">
+        <div class="exit-modal__card">
+            <p class="exit-modal__title" data-text="exitDialog.title"></p>
+            <div class="exit-modal__buttons">
+                <button class="btn btn--light exit-modal__button" type="button" data-action="cancel-exit">
+                    <span data-text="exitDialog.cancelLabel"></span>
+                </button>
+                <button class="btn btn--solid exit-modal__button" type="button" data-action="confirm-exit">
+                    <span data-text="exitDialog.confirmLabel"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Dados (conteúdo editável) -->
+<script src="data/content.js"></script>
+<script src="data/questions.js"></script>
+<script src="data/furniture-layout.js"></script>
+
+<!-- Lógica -->
+<script src="js/dom.js"></script>
+<script src="js/furniture.js"></script>
+<script src="js/screens.js"></script>
+<script src="js/game.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

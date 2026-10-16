@@ -1,0 +1,57 @@
+{
+    "fullscreen": true,
+    "kiosk": true,
+    "width": 1080,
+    "height": 1920,
+    "hideCursor": false,
+    "preventDisplaySleep": true,
+
+    "devOverrides": {
+        "fullscreen": false,
+        "kiosk": false,
+        "width": 540,
+        "height": 960,
+        "openDevTools": false
+    },
+
+    "maintenance": {
+        "enabled": true,
+        "exitShortcut": "Control+Shift+Alt+Q"
+    },
+
+    "timing": {
+        "correctFeedbackMs": 3000,
+        "errorFeedbackMs": 3500,
+        "errorDismissGuardMs": 500,
+        "idleResetMs": 90000,
+        "finalScreenResetMs": 30000
+    },
+
+    "gameplay": {
+        "keepPreviousAnswersRevealed": false,
+        "showProgressLabel": true
+    },
+
+    "qrCode": {
+        "url": null,
+        "imagePath": null
+    },
+
+    "assets": {
+        "logo": null,
+        "furnitureImage": null,
+        "background": null
+    },
+
+    "sounds": {
+        "volume": 0.8,
+        "tap": null,
+        "correct": null,
+        "wrong": null
+    },
+
+    "debug": {
+        "showPlaceholderLabels": true,
+        "showHitboxes": false
+    }
+}

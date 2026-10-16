@@ -1,0 +1,433 @@
+/* ==========================================================================
+   Jogo: cabeçalhos das perguntas, móvel, áreas interativas, feedback, progresso
+   ========================================================================== */
+
+/* ---------- Cabeçalho da pergunta (cores vêm de questions.js → theme) ---------- */
+
+.question-header {
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    right: 50px;
+    height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+    border-radius: 36px;
+    background: var(--question-bg);
+    color: var(--question-text);
+    text-align: center;
+    box-shadow: 0 10px 0 rgba(11, 78, 162, 0.08);
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.question-header__text {
+    font-size: 64px;
+    line-height: 1.12;
+}
+
+.correct-header {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--navy);
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+    transition: opacity 300ms ease, transform 400ms cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+.correct-header__heart {
+    width: 96px;
+    height: 84px;
+    overflow: visible;
+}
+
+.correct-header__text {
+    font-size: 150px;
+    line-height: 0.92;
+    text-align: center;
+}
+
+[data-feedback="correct"] .question-header {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+[data-feedback="correct"] .correct-header {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ---------- Móvel ---------- */
+
+/* Hosts do móvel: o móvel ocupa o maior tamanho que couber, centralizado */
+.question__furniture {
+    --furniture-max-width: 924px;
+    position: absolute;
+    top: 455px;
+    bottom: 120px;
+    left: 0;
+    right: 0;
+}
+
+.question__furniture,
+.congrats__furniture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    container-type: size;
+}
+
+.furniture {
+    position: relative;
+    flex: none;
+    width: min(var(--furniture-max-width), 100cqw, calc(100cqh * var(--furniture-aspect)));
+    aspect-ratio: var(--furniture-aspect);
+    container-type: inline-size;
+}
+
+/* TODO(assets): arte oficial do móvel → config.assets.furnitureImage */
+.furniture__art {
+    position: absolute;
+    inset: 0;
+    border-radius: 15% 15% 3% 3% / 10% 10% 2% 2%;
+    background:
+        repeating-linear-gradient(90deg, rgba(120, 72, 30, 0.07) 0 3px, transparent 3px 22px),
+        linear-gradient(90deg, #c4925c 0%, #dcb27c 18%, #d6aa72 50%, #dcb27c 82%, #c4925c 100%);
+    box-shadow: 0 24px 50px rgba(11, 40, 80, 0.3), inset 0 0 0 4px rgba(255, 255, 255, 0.12);
+}
+
+.furniture__art--image {
+    background: none;
+    box-shadow: none;
+}
+
+.furniture__image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.furniture__logo {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    font-size: 15.5cqi;
+}
+
+.furniture__logo .logo-placeholder {
+    text-shadow: 0 0 18px rgba(255, 170, 70, 0.95), 0 0 4px rgba(255, 220, 160, 0.9);
+    filter: drop-shadow(0 0 10px rgba(255, 170, 70, 0.7));
+}
+
+.furniture__side {
+    position: absolute;
+    top: 20%;
+    bottom: 18%;
+    width: 7.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heavy);
+    font-weight: 900;
+    font-size: 4.6cqi;
+    line-height: 1.12;
+    color: #fff8ee;
+    text-shadow: 0 0 10px rgba(255, 160, 60, 0.95), 0 0 2px rgba(255, 200, 120, 1);
+}
+
+.furniture__side--left { left: 0; }
+.furniture__side--right { right: 0; }
+
+.furniture__niche {
+    position: absolute;
+    top: 18.9%;
+    bottom: 1.9%;
+    left: 7.3%;
+    right: 7.4%;
+    background: linear-gradient(180deg, #8f6034 0%, #a87a4a 40%, #b38552 100%);
+    box-shadow: inset 0 0 40px rgba(60, 30, 5, 0.55);
+}
+
+.shelf-board {
+    position: absolute;
+    left: 7.3%;
+    right: 7.4%;
+    height: 1%;
+    transform: translateY(-40%);
+    background: linear-gradient(180deg, #e8c590, #b98a55);
+}
+
+.shelf-area {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.6%;
+    container-type: inline-size;
+}
+
+.shelf-area__products {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5%;
+    padding: 9% 4% 0;
+    min-height: 0;
+}
+
+/* TODO(assets): silhuetas genéricas — substituir pelas fotos oficiais dos produtos */
+.product-placeholder {
+    position: relative;
+    flex: 0 1 64px;
+    min-width: 14px;
+    height: calc(var(--product-height) * 100%);
+    border-radius: 16px 16px 8px 8px;
+    background: linear-gradient(90deg, #dfe6ec, #ffffff 45%, #e7edf2);
+    box-shadow: 0 6px 12px rgba(40, 20, 0, 0.25);
+}
+
+.product-placeholder::before {
+    content: "";
+    position: absolute;
+    top: -8%;
+    left: 30%;
+    right: 30%;
+    height: 9%;
+    border-radius: 6px 6px 0 0;
+    background: #f4f7fa;
+}
+
+.show-placeholder-labels .product-placeholder {
+    outline: 2px dashed rgba(233, 30, 140, 0.55);
+    outline-offset: -4px;
+}
+
+.shelf-area__label {
+    flex: 0 0 17%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3%;
+    font-family: var(--font-heavy);
+    font-weight: 900;
+    font-size: clamp(13px, 8.5cqi, 23px);
+    line-height: 1.05;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(40, 20, 0, 0.25);
+}
+
+/* ---------- Escurecimento (revela a resposta ao acertar) ---------- */
+
+.furniture__dim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.dim-mask {
+    position: absolute;
+    background: rgba(10, 24, 44, 0.58);
+    opacity: 0;
+    transition: opacity 600ms ease;
+}
+
+.furniture.is-dimmed .dim-mask {
+    opacity: 1;
+}
+
+.furniture.is-dimmed .dim-mask.is-revealed {
+    opacity: 0;
+}
+
+/* ---------- Áreas interativas (hitboxes transparentes) ---------- */
+
+.furniture__hitboxes {
+    position: absolute;
+    inset: 0;
+}
+
+.interactive-area {
+    position: absolute;
+    cursor: pointer;
+    touch-action: manipulation;
+    border-radius: 14px;
+    transition: background-color 120ms ease;
+}
+
+.interactive-area.is-pressed {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.show-hitboxes .interactive-area {
+    outline: 3px dashed rgba(233, 30, 140, 0.9);
+    outline-offset: -3px;
+    background-color: rgba(233, 30, 140, 0.12);
+}
+
+.interactive-area.is-correct {
+    z-index: 2;
+    box-shadow:
+        0 0 0 7px var(--white),
+        0 0 46px 14px rgba(255, 255, 255, 0.75);
+    animation: correct-pulse 900ms ease-out both;
+}
+
+@keyframes correct-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.interactive-area__check {
+    position: absolute;
+    top: -34px;
+    right: -26px;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: var(--navy);
+    box-shadow: 0 0 0 6px var(--white), 0 8px 18px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.interactive-area__check::after {
+    content: "";
+    position: absolute;
+    left: 31px;
+    top: 16px;
+    width: 26px;
+    height: 46px;
+    border-right: 10px solid var(--white);
+    border-bottom: 10px solid var(--white);
+    transform: rotate(45deg);
+}
+
+.interactive-area.is-correct .interactive-area__check {
+    animation: check-pop 500ms 250ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+
+@keyframes check-pop {
+    from { opacity: 0; transform: scale(0); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.interactive-area.is-wrong {
+    animation: wrong-shake 500ms ease both;
+}
+
+@keyframes wrong-shake {
+    0%, 100% { transform: translateX(0); box-shadow: 0 0 0 0 transparent; }
+    15%, 55% { transform: translateX(-12px); box-shadow: 0 0 0 6px #e8303f; }
+    35%, 75% { transform: translateX(12px); box-shadow: 0 0 0 6px #e8303f; }
+}
+
+/* ---------- Card de erro (mesma cor da pergunta) ---------- */
+
+.error-modal {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: none;
+    background: var(--error-backdrop);
+    cursor: pointer;
+}
+
+[data-feedback="wrong"] .error-modal {
+    display: block;
+    animation: screen-in 250ms ease both;
+}
+
+.error-modal__card {
+    position: absolute;
+    top: 445px; /* logo abaixo do cabeçalho da pergunta, como no material */
+    left: 125px;
+    right: 125px;
+    height: min(1170px, calc(100% - 565px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(80px, 9.4cqh, 180px) 60px clamp(100px, 11.5cqh, 220px);
+    border-radius: 64px;
+    background: var(--question-bg);
+    color: var(--question-text);
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    animation: card-pop 450ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes card-pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.error-modal__title {
+    font-family: var(--font-heavy);
+    font-weight: 900;
+    font-size: 76px;
+}
+
+.error-modal__wand {
+    width: 110px;
+    height: 140px;
+    overflow: visible;
+}
+
+.error-modal__message {
+    font-size: 76px;
+    line-height: 1.02;
+}
+
+/* ---------- Indicador de progresso ---------- */
+
+.progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.progress__dots {
+    display: flex;
+    gap: 30px;
+}
+
+.progress__dot {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 5px solid var(--sky-light);
+    transition: background-color 400ms ease, transform 400ms ease;
+}
+
+.progress__dot.is-complete {
+    background: var(--sky-light);
+    transform: scale(1.06);
+}
+
+.progress__label {
+    font-family: var(--font-heavy);
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 0.14em;
+    color: var(--sky-light);
+}

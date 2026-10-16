@@ -1,0 +1,17 @@
+# Dependências
+node_modules/
+
+# Builds (electron-builder) — o instalador vai em Releases, não no repositório
+dist/
+out/
+
+# Logs e temporários
+npm-debug.log*
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
