@@ -7,10 +7,37 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "test": "node --test tests/e2e.test.js"
+    "test": "node --test tests/e2e.test.js",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "build": {
+    "appId": "com.mustela.totem",
+    "productName": "Mustela Totem",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "config/app-config.json",
+      "!**/README.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "Mustela-Totem-${version}.exe"
+    }
   },
   "devDependencies": {
     "electron": "44.4.3",
+    "electron-builder": "26.15.3",
     "playwright-core": "1.63.0"
   }
 }

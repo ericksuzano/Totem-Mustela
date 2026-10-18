@@ -7,10 +7,17 @@ const fs = require("fs");
 // `--dev` abre em janela (sem kiosk) para desenvolvimento/testes.
 const isDevMode = process.argv.includes("--dev");
 
-// MUSTELA_CONFIG permite apontar outro arquivo (ex.: config de testes ou de outro totem).
-const configPath = process.env.MUSTELA_CONFIG
-    ? path.resolve(process.env.MUSTELA_CONFIG)
-    : path.join(__dirname, "config", "app-config.json");
+// Ordem: MUSTELA_CONFIG (testes/outro totem) → app-config.json ao lado do .exe portátil
+// (permite ajustar o totem sem gerar outro build) → config embutida no app.
+function resolveConfigPath() {
+    if (process.env.MUSTELA_CONFIG) return path.resolve(process.env.MUSTELA_CONFIG);
+    const portableDir = process.env.PORTABLE_EXECUTABLE_DIR;
+    const besideExe = portableDir && path.join(portableDir, "app-config.json");
+    if (besideExe && fs.existsSync(besideExe)) return besideExe;
+    return path.join(__dirname, "config", "app-config.json");
+}
+
+const configPath = resolveConfigPath();
 
 // Atalhos que permitiriam ao participante sair/recarregar/inspecionar a aplicação.
 const BLOCKED_SHORTCUTS = [
