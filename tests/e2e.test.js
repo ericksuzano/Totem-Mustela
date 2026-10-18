@@ -14,8 +14,13 @@ const ROOT = path.join(__dirname, "..");
 const TEST_CONFIG = path.join(__dirname, "test-config.json");
 
 // Respostas conforme o material de referência.
-const CORRECT = { 0: ["area-09"], 1: ["area-01", "area-03"], 2: ["area-04"], 3: ["area-02"] };
-const WRONG = { 0: "area-01", 1: "area-04", 2: "area-06", 3: "area-12" };
+const CORRECT = {
+    0: ["area-09", "area-06"],
+    1: ["area-01", "area-03", "area-06", "area-05", "area-11", "area-12"],
+    2: ["area-04", "area-05", "area-06", "area-11", "area-12"],
+    3: ["area-02", "area-06", "area-11", "area-12"]
+};
+const WRONG = { 0: "area-01", 1: "area-04", 2: "area-01", 3: "area-07" };
 
 const childProcesses = new WeakMap();
 
@@ -308,7 +313,9 @@ test("responsivo: em cada formato de tela o layout cabe, não se sobrepõe e as 
             await waitFor(page, "screen", "question");
             await assertLayout(page, `${name}/pergunta`, {
                 inside: [".question-header", ".screen--question .furniture", ".progress"],
-                stacked: [[".question-header", ".screen--question .furniture"], [".screen--question .furniture", ".progress"]]
+                // A base do móvel fica sob a onda do rodapé (junto com o progresso);
+                // o que não pode encostar no progresso é a última prateleira.
+                stacked: [[".question-header", ".screen--question .furniture"], [areaSelector("area-11"), ".progress"], [areaSelector("area-12"), ".progress"]]
             });
 
             await tap(areaSelector("area-01"));
