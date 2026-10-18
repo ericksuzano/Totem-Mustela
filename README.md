@@ -27,6 +27,22 @@ npm run dev      # janela 540×960, sem kiosk, atalhos liberados
 npm test         # testes ponta a ponta no Electron real
 ```
 
+## Gerar o executável
+
+```bash
+npm run dist     # → dist/Mustela-Totem-<versão>.exe
+```
+
+Gera **somente um executável portátil** (alvo `portable` do electron-builder): um único `.exe`
+que abre o jogo direto, **sem instalar nada** (sem instalador, atalhos ou entrada em
+"Aplicativos instalados"). Não adicionar o alvo `nsis`/instalador em `package.json → build`.
+
+- Para colocar no totem, basta copiar o `.exe`, por exemplo, para a pasta "Inicializar" do Windows.
+- A cada abertura ele se extrai numa pasta temporária, então leva alguns segundos para aparecer.
+- Para ajustar o totem sem gerar outro build, coloque um `app-config.json` **na mesma pasta do `.exe`**:
+  ele substitui a config embutida (mesmo formato de `config/app-config.json`).
+- Rodar com `--dev` (`Mustela-Totem-0.1.0.exe --dev`) abre em janela, sem kiosk.
+
 **Sair do kiosk (manutenção):** `Ctrl+Shift+Alt+Q` (configurável em `maintenance.exitShortcut`).
 Ctrl+R, F5, F11, F12, Ctrl+W, zoom e fechar a janela (Alt+F4) ficam bloqueados no kiosk.
 
@@ -45,10 +61,12 @@ Textos aceitam `**negrito**` e `\n` para quebrar linha.
 
 | Pergunta | Área(s) correta(s) |
 |---|---|
-| 1 — Gestação e pós-parto | `area-09` Gestantes e Autocuidado Feminino |
-| 2 — Pele normal | `area-01` e `area-03` Pele Normal (as duas prateleiras) |
-| 3 — Pele muito sensível | `area-04` Pele Muito Sensível |
-| 4 — Pele muito seca e atópica | `area-02` Dermatite Atópica |
+| 1 — Gestação e pós-parto | `area-09` Gestantes e Autocuidado Feminino, `area-06` Proteção Solar |
+| 2 — Pele normal | `area-01` e `area-03` Pele Normal (as duas prateleiras), `area-06` Proteção Solar, `area-05` Reparação, `area-11` Prevenção de Assaduras, `area-12` Troca |
+| 3 — Pele muito sensível | `area-04` Pele Muito Sensível, `area-05` Reparação, `area-06` Proteção Solar, `area-11` Prevenção de Assaduras, `area-12` Troca |
+| 4 — Pele muito seca e atópica | `area-02` Dermatite Atópica, `area-06` Proteção Solar, `area-11` Prevenção de Assaduras, `area-12` Troca |
+
+Tocar em **qualquer** área correta conta como acerto; todas as corretas acendem juntas.
 
 ### `config/app-config.json`
 
@@ -86,6 +104,5 @@ Trocar a arte não exige mexer na lógica — só ajustar as porcentagens em `fu
 
 ## Pendências (TODO)
 
-- Assets oficiais: logo, móvel, produtos, fundo, fontes, sons (ver README de cada pasta em `src/assets/`).
-- URL do QR Code.
+- Assets oficiais: produtos, fundo, fontes, sons (pastas em `src/assets/`).
 - Desligar `debug.showPlaceholderLabels` quando os assets finais entrarem.
