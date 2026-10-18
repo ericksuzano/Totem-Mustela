@@ -39,6 +39,11 @@
     font-size: 200px;
 }
 
+/* Logo em PNG (457×152): na capa aparece maior, como o placeholder */
+.cover__logo .logo-image {
+    width: 700px;
+}
+
 .btn--cover {
     position: absolute;
     left: 50%;
@@ -62,63 +67,72 @@
 }
 
 /* ---------- 2. COMO JOGAR ---------- */
+/* Medidas, ondas, estrela e botão copiados do print do cliente (assets/como-jogar/) */
+
+.screen--how-to-play.bg-waves {
+    background:
+        url("../assets/como-jogar/onda-topo.png") top / 100% auto no-repeat,
+        url("../assets/como-jogar/onda-base.png") bottom / 100% auto no-repeat,
+        var(--sky-light);
+}
 
 .how-to-play__title {
     position: absolute;
-    top: 12%;
+    top: calc(12% - 22px);
     left: 0;
     right: 0;
     text-align: center;
     font-family: var(--font-heavy);
     font-weight: 900;
-    font-size: 84px;
+    font-size: 94px;
     color: var(--navy);
 }
 
 .how-to-play__panel {
     position: absolute;
-    top: calc(12% + 140px);
-    bottom: calc(10.4% + 90px);
-    left: 80px;
-    right: 80px;
+    top: calc(12% + 129px);
+    bottom: calc(10.4% + 69px);
+    left: 76px;
+    right: 77px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 60px 50px 150px;
-    background: var(--sky);
+    padding: 60px 50px 115px;
+    background: #6ac4e9;
     text-align: center;
     container-type: size;
 }
 
 .how-to-play__body {
-    font-size: clamp(48px, 5.3cqh, 66px);
-    line-height: 1.32;
+    font-size: clamp(48px, 5.3cqh, 70px);
+    line-height: 1.5;
     color: var(--navy);
 }
 
 .how-to-play__star {
     display: block;
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 83px;
     flex: none;
-    margin: clamp(24px, 8.7cqh, 110px) auto clamp(20px, 5.5cqh, 70px);
-    color: var(--white);
+    margin: clamp(24px, 10cqh, 130px) auto clamp(16px, 3cqh, 40px);
 }
 
 .how-to-play__hint {
     font-size: clamp(40px, 4.3cqh, 54px);
-    line-height: 1.4;
+    line-height: 1.75;
     color: var(--navy);
 }
 
 .how-to-play__button {
     position: absolute;
     left: 50%;
-    bottom: 10.4%;
+    bottom: calc(10.4% + 15px);
     transform: translateX(-50%);
-    padding: 30px 56px;
-    border-radius: 26px;
-    font-size: 68px;
+    width: 793px;
+    height: 128px;
+    padding: 0;
+    background: url("../assets/como-jogar/botao.png") center / 100% 100% no-repeat;
+    font-size: 72px;
     white-space: nowrap;
 }
 
@@ -219,6 +233,7 @@
     width: 100%;
     height: 200px;
     display: flex;
+    align-items: center;
     justify-content: center;
     font-size: 125px;
 }
@@ -263,13 +278,13 @@
     white-space: pre-line;
 }
 
+/* Seta rabiscada recortada do print da tela final (mesma posição/tamanho do print) */
 .final__qr-arrow {
     position: absolute;
-    left: 800px;
-    top: 230px;
-    width: 120px;
-    height: 180px;
-    color: var(--white);
+    left: 803px;
+    top: 315px;
+    width: 136px;
+    height: 193px;
 }
 
 .final__qr-title {

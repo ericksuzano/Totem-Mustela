@@ -4,9 +4,9 @@
 
 :root {
     /* Paleta extraída do material de referência */
-    --brand-blue: #0b52a5;
-    --navy: #0b4ea2;
-    --sky-light: #bfe9f7;
+    --brand-blue: #004d9d; /* fundo do print da tela final */
+    --navy: #004b9c;      /* ondas/títulos dos prints do cliente */
+    --sky-light: #c9e8fc; /* fundo claro dos prints do cliente */
     --sky: #5ccdea;
     --white: #ffffff;
     --error-backdrop: rgba(9, 32, 58, 0.66);
@@ -17,8 +17,8 @@
     --font-heavy: "Segoe UI Black", "Arial Black", "Segoe UI", system-ui, sans-serif;
 
     /* Fundos orgânicos (ondas) — placeholders vetoriais até a arte oficial (config.assets.background) */
-    --wave-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 200' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1080V70C900 130 720 20 520 60C340 96 180 150 0 120Z' fill='%230b4ea2'/%3E%3C/svg%3E");
-    --wave-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 240' preserveAspectRatio='none'%3E%3Cpath d='M0 70C160 20 300 40 470 80C640 120 860 120 1080 40V240H0Z' fill='%230b4ea2'/%3E%3C/svg%3E");
+    --wave-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 200' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1080V70C900 130 720 20 520 60C340 96 180 150 0 120Z' fill='%23004b9c'/%3E%3C/svg%3E");
+    --wave-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 240' preserveAspectRatio='none'%3E%3Cpath d='M0 70C160 20 300 40 470 80C640 120 860 120 1080 40V240H0Z' fill='%23004b9c'/%3E%3C/svg%3E");
 }
 
 *,

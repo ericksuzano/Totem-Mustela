@@ -71,10 +71,45 @@
 .question__furniture {
     --furniture-max-width: 924px;
     position: absolute;
+    z-index: 1;
     top: 455px;
-    bottom: 120px;
+    bottom: 100px;
     left: 0;
     right: 0;
+}
+
+/* Móvel encostado embaixo: a base de madeira fica sob a onda do rodapé */
+.screen--question .question__furniture {
+    align-items: flex-end;
+}
+
+/* Onda do rodapé POR CIMA do móvel (sai do fundo e vira camada própria).
+   Mais baixa e suave que a das outras telas: sobre o móvel o topo dela fica a
+   ≥24/140 da altura, ou seja, cobre só a base de madeira, abaixo das etiquetas
+   da última prateleira, e ainda acomoda o progresso. pointer-events: none → não rouba toques. */
+.screen--question.bg-waves {
+    background: var(--wave-top) top / 100% 170px no-repeat, var(--sky-light);
+}
+
+.screen--question::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 140px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 140' preserveAspectRatio='none'%3E%3Cpath d='M0 64C140 26 300 24 540 24C780 24 940 36 1080 16V140H0Z' fill='%23004b9c'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+    pointer-events: none;
+}
+
+.screen--question .progress {
+    z-index: 3;
+}
+
+.screen--question .progress__dot {
+    width: 46px;
+    height: 46px;
 }
 
 .question__furniture,
@@ -291,15 +326,17 @@
     100% { transform: scale(1); }
 }
 
+/* Check pequeno, DENTRO da quina superior direita da área: não cobre etiquetas
+   nem produtos das áreas vizinhas (várias áreas podem estar corretas ao mesmo tempo). */
 .interactive-area__check {
     position: absolute;
-    top: -34px;
-    right: -26px;
-    width: 92px;
-    height: 92px;
+    top: 10px;
+    right: 10px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     background: var(--navy);
-    box-shadow: 0 0 0 6px var(--white), 0 8px 18px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 4px var(--white), 0 5px 12px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transform: scale(0);
     pointer-events: none;
@@ -308,12 +345,12 @@
 .interactive-area__check::after {
     content: "";
     position: absolute;
-    left: 31px;
-    top: 16px;
-    width: 26px;
-    height: 46px;
-    border-right: 10px solid var(--white);
-    border-bottom: 10px solid var(--white);
+    left: 18px;
+    top: 9px;
+    width: 15px;
+    height: 27px;
+    border-right: 6px solid var(--white);
+    border-bottom: 6px solid var(--white);
     transform: rotate(45deg);
 }
 

@@ -24,7 +24,7 @@
         "errorFeedbackMs": 3500,
         "errorDismissGuardMs": 500,
         "idleResetMs": 90000,
-        "finalScreenResetMs": 30000
+        "finalScreenResetMs": 15000
     },
 
     "gameplay": {
@@ -34,12 +34,12 @@
 
     "qrCode": {
         "url": null,
-        "imagePath": null
+        "imagePath": "assets/qr/qr-code.jpg"
     },
 
     "assets": {
-        "logo": null,
-        "furnitureImage": null,
+        "logo": "assets/logo/logo.png",
+        "furnitureImage": "assets/furniture/movel.png",
         "background": null
     },
 

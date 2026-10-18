@@ -24,7 +24,7 @@
     // Usado quando a aplicação roda fora do Electron (ex.: abrir index.html no navegador).
     const DEFAULT_CONFIG = {
         hideCursor: false,
-        timing: { correctFeedbackMs: 3000, errorFeedbackMs: 3500, errorDismissGuardMs: 500, idleResetMs: 90000, finalScreenResetMs: 30000 },
+        timing: { correctFeedbackMs: 3000, errorFeedbackMs: 3500, errorDismissGuardMs: 500, idleResetMs: 90000, finalScreenResetMs: 15000 },
         gameplay: { keepPreviousAnswersRevealed: false, showProgressLabel: true },
         qrCode: { url: null, imagePath: null },
         assets: { logo: null, furnitureImage: null, background: null },
